@@ -1,11 +1,7 @@
-import {
-  createDrawerNavigator,
-  DrawerNavigationOptions,
-} from "@react-navigation/drawer";
-import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
-import Dashboard from "../containers/Dashboard";
-import Category from "../containers/Category";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
+import { Dashboard, Category } from "../containers";
 
 type RootDrawerParamList = {
   Dashboard: undefined;
