@@ -18,7 +18,7 @@ const Category: React.FC<Props> = ({ containerStyle, viewStyle }) => {
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.category);
 
-  const handleNewCategory = (): void => {
+  const handleAddNewCategory = (): void => {
     dispatch(
       addCategory({
         id: 2,
@@ -66,7 +66,7 @@ const Category: React.FC<Props> = ({ containerStyle, viewStyle }) => {
         <Button
           mode="outlined"
           style={[styles.addNewBtn]}
-          onPress={handleNewCategory}
+          onPress={handleAddNewCategory}
         >
           <Text style={{ color: "white", fontSize: 12, fontWeight: "bold" }}>
             ADD NEW CATEGORY

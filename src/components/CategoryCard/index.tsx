@@ -3,8 +3,14 @@ import { View } from "react-native";
 import { Button, Text, Card, TextInput, IconButton } from "react-native-paper";
 import { Category } from "../../types";
 import styles from "./styles";
+import { useAppDispatch } from "../../store";
+import { removeCategory } from "../../store/CategoryReducer";
 
 const CategoryCard: React.FC<{ c: Category }> = ({ c }) => {
+  const dispatch = useAppDispatch();
+
+  const handleRemoveCategory = (id: number) => dispatch(removeCategory(id));
+
   return (
     <Card style={styles.card} mode="elevated">
       <Card.Title
@@ -57,7 +63,7 @@ const CategoryCard: React.FC<{ c: Category }> = ({ c }) => {
             textColor="blue"
             icon="delete"
             mode="text"
-            onPress={() => console.log("Pressed")}
+            onPress={() => handleRemoveCategory(c.id)}
           >
             <Text style={styles.categoryActionBtnTxt}>REMOVE</Text>
           </Button>

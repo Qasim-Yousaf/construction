@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     height: "10%",
-    borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",
   },

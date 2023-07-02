@@ -61,6 +61,9 @@ const categorySlice: Slice<CategoryState> = createSlice({
     ) => {
       state.categories = [...state.categories, action.payload];
     },
+    removeCategory: (state = initialState, action: PayloadAction<number>) => {
+      state.categories = state.categories.filter((c) => c.id != action.payload);
+    },
     clear: (state = initialState) => {
       state.value = 0;
     },
@@ -70,6 +73,7 @@ const categorySlice: Slice<CategoryState> = createSlice({
   },
 });
 
-export const { addCategory, clear, increment } = categorySlice.actions;
+export const { addCategory, removeCategory, clear, increment } =
+  categorySlice.actions;
 
 export default categorySlice.reducer;
