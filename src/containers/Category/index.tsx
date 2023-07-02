@@ -14,11 +14,7 @@ type Props = {
   viewStyle?: StyleProp<ViewStyle>;
 };
 
-const Category: React.FC<Props> = ({
-  containerStyle,
-  viewStyle,
-  textStyle,
-}) => {
+const Category: React.FC<Props> = ({ containerStyle, viewStyle }) => {
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.category);
 
