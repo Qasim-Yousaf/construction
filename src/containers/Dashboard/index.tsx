@@ -9,13 +9,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { useSelector, useDispatch } from "react-redux";
 
-import {
-  increment,
-  decrement,
-  incrementByAmount,
-} from "../../store/CategoryReducer";
+import { increment } from "../../store/CategoryReducer";
 
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
@@ -23,9 +18,6 @@ type Props = {
 };
 
 const Dashboard: React.FC<Props> = ({ containerStyle, textStyle }) => {
-  // const { value } = useSelector((state: RootState) => state.category);
-  // const dispatch = useDispatch<AppDispatch>();
-
   const dispatch = useAppDispatch();
   const { value } = useAppSelector((state) => state.category);
 
