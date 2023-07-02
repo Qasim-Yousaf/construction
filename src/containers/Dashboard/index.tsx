@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles";
 import {
   View,
@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useAppDispatch, useAppSelector } from "../../store";
 
-import { increment } from "../../store/CategoryReducer";
+import { addCategory, clear, increment } from "../../store/CategoryReducer";
 
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
@@ -19,14 +19,37 @@ type Props = {
 
 const Dashboard: React.FC<Props> = ({ containerStyle, textStyle }) => {
   const dispatch = useAppDispatch();
-  const { value } = useAppSelector((state) => state.category);
+  const category = useAppSelector((state) => state.category);
 
+  useEffect(() => {
+    console.log("categories....", JSON.stringify(category, undefined, 2));
+  }, [category]);
   return (
     <View style={[styles.container, containerStyle]}>
-      <Text style={[styles.text, textStyle]}>Dashboard : {value}</Text>
-      <TouchableOpacity onPress={() => dispatch(increment())}>
-        <Text>Increment</Text>
+      <Text style={[styles.text, textStyle]}>Dashboard : {category.value}</Text>
+      <TouchableOpacity
+        onPress={() => {
+          dispatch(clear());
+        }}
+      >
+        <Text>clear</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => {
+          dispatch(increment());
+        }}
+      >
+        <Text>increment</Text>
+      </TouchableOpacity>
+
+      {category.categories.map((c) => {
+        return (
+          <View>
+            <Text>{c.name}</Text>
+          </View>
+        );
+      })}
     </View>
   );
 };

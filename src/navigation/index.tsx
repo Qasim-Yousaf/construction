@@ -14,8 +14,16 @@ const Navigation: React.FC = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Dashboard">
-        <Drawer.Screen name="Dashboard" component={Dashboard} />
-        <Drawer.Screen name="Category" component={Category} />
+        <Drawer.Screen
+          name="Dashboard"
+          component={Dashboard}
+          options={{ drawerLabel: "Dashboard" }}
+        />
+        <Drawer.Screen
+          name="Category"
+          component={Category}
+          options={{ drawerLabel: "Category" }}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );

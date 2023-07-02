@@ -42,30 +42,34 @@ interface CategoryItem {
 interface CategoryState {
   value: number;
   categories: Array<CategoryItem>;
+  data: number;
 }
 
 const initialState: CategoryState = {
   value: 0,
   categories: DEMO_DATA,
+  data: 10,
 };
 
 const categorySlice: Slice<CategoryState> = createSlice({
   name: "category",
   initialState,
   reducers: {
-    increment: (state) => {
+    addCategory: (
+      state = initialState,
+      action: PayloadAction<CategoryItem>
+    ) => {
+      state.categories = [...state.categories, action.payload];
+    },
+    clear: (state = initialState) => {
+      state.value = 0;
+    },
+    increment: (state = initialState) => {
       state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
     },
   },
 });
 
-export const { increment, decrement, incrementByAmount } =
-  categorySlice.actions;
+export const { addCategory, clear, increment } = categorySlice.actions;
 
 export default categorySlice.reducer;
