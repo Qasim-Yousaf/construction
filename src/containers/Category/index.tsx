@@ -1,28 +1,12 @@
 import React from "react";
 
-import {
-  View,
-  ScrollView,
-  StyleProp,
-  TextStyle,
-  ViewStyle,
-} from "react-native";
-
-import { useSelector, useDispatch } from "react-redux";
-import { AppDispatch } from "../../store";
-import {
-  Button,
-  Text,
-  Card,
-  TextInput,
-  IconButton,
-  MD3Colors,
-} from "react-native-paper";
-
+import { View, StyleProp, TextStyle, ViewStyle, FlatList } from "react-native";
+import { Button, Text } from "react-native-paper";
 import { useAppDispatch, useAppSelector } from "../../store";
-
 import { addCategory } from "../../store/CategoryReducer";
 import styles from "./styles";
+import { CategoryCard } from "../../components";
+import { Category as CategoryType } from "../../types";
 
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
@@ -69,135 +53,18 @@ const Category: React.FC<Props> = ({
     );
   };
 
+  const renderCategory = ({ item }: { item: CategoryType }) => (
+    <CategoryCard c={item} />
+  );
+
   return (
     <View style={[styles.container, containerStyle]}>
       <View style={[styles.body, containerStyle]}>
-        <ScrollView>
-          {categories.map((c, index) => {
-            return (
-              <Card
-                key={index}
-                style={[styles.card, viewStyle]}
-                mode="elevated"
-              >
-                <Card.Title
-                  titleStyle={[styles.catName, textStyle]}
-                  title={!c?.name ? "New Category" : c?.name}
-                />
-                <Card.Content>
-                  <TextInput
-                    outlineColor="gray"
-                    activeOutlineColor="blue"
-                    style={[styles.textInput]}
-                    placeholder=""
-                    mode="outlined"
-                    label="Category Name"
-                  />
-                  {c.fileds.map((f, index) => {
-                    return (
-                      <View
-                        key={index}
-                        style={{
-                          flexDirection: "row",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <View
-                          style={{
-                            flex: 1,
-                          }}
-                        >
-                          <TextInput
-                            outlineColor="gray"
-                            activeOutlineColor="blue"
-                            style={[styles.textInput]}
-                            placeholder=""
-                            mode="outlined"
-                            label="Field"
-                          />
-                        </View>
-
-                        <View
-                          style={{
-                            height: 50,
-                            marginTop: 5,
-                            justifyContent: "center",
-                            alignItems: "center",
-                            flexDirection: "row",
-                          }}
-                        >
-                          <View
-                            style={{
-                              justifyContent: "center",
-                              alignItems: "center",
-                              paddingHorizontal: 8,
-                              borderWidth: 1,
-                              borderColor: "#dddedf",
-                              height: 50,
-                            }}
-                          >
-                            <Text
-                              style={{
-                                color: "blue",
-                                fontWeight: "700",
-                                fontSize: 12,
-                                textTransform: "uppercase",
-                              }}
-                            >
-                              {f?.type}
-                            </Text>
-                          </View>
-                          <View style={{ width: 50 }}>
-                            <IconButton
-                              icon="delete"
-                              iconColor={"black"}
-                              size={24}
-                              onPress={() => console.log("Pressed")}
-                            />
-                          </View>
-                        </View>
-                      </View>
-                    );
-                  })}
-                </Card.Content>
-                <Card.Actions
-                  style={{
-                    alignSelf: "flex-start",
-                  }}
-                >
-                  <View
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                    }}
-                  >
-                    <Button
-                      onPress={() => {}}
-                      style={{ borderRadius: 5 }}
-                      mode="outlined"
-                    >
-                      <Text style={{ color: "blue", fontWeight: "600" }}>
-                        ADD NEW FIELD
-                      </Text>
-                    </Button>
-
-                    <Button
-                      textColor="blue"
-                      icon="delete"
-                      mode="text"
-                      onPress={() => console.log("Pressed")}
-                    >
-                      <Text style={{ color: "blue", fontWeight: "600" }}>
-                        REMOVE
-                      </Text>
-                    </Button>
-                  </View>
-                </Card.Actions>
-              </Card>
-            );
-          })}
-        </ScrollView>
+        <FlatList
+          data={categories}
+          renderItem={renderCategory}
+          keyExtractor={(item) => item.name || Math.random().toString()}
+        />
       </View>
       <View style={[styles.footer, viewStyle]}>
         <Button
