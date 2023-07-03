@@ -1,6 +1,14 @@
 import React from "react";
 import { View } from "react-native";
-import { Button, Text, Card, TextInput, IconButton } from "react-native-paper";
+import {
+  Button,
+  Text,
+  Card,
+  TextInput,
+  IconButton,
+  Menu,
+  Divider,
+} from "react-native-paper";
 import styles from "./styles";
 
 import { CategoryItem } from "../../store/CategoryReducer";
@@ -12,6 +20,7 @@ const CategoryCard: React.FC<{
   clickToRemoveCategory: () => void;
   onFieldValueChange: (fIndex: number, title: string, type: string) => void;
   clickToRemoveCategoryField: (fIndex: number) => void;
+  clickToAddField: (type: string) => void;
 }> = React.memo(
   ({
     c,
@@ -20,7 +29,17 @@ const CategoryCard: React.FC<{
     clickToRemoveCategory,
     onFieldValueChange,
     clickToRemoveCategoryField,
+    clickToAddField,
   }) => {
+    const [visible, setVisible] = React.useState(false);
+    const openMenu = () => setVisible(true);
+    const closeMenu = () => setVisible(false);
+
+    const getKeyboardType = (type: string): string => {
+      if (type === "number") {
+        return "numeric";
+      } else return "default";
+    };
     return (
       <Card style={styles.card} mode="elevated" key={index}>
         <Card.Title
@@ -41,7 +60,7 @@ const CategoryCard: React.FC<{
             label="Category Name"
           />
           {c.fields.map((f, index) => (
-            <View key={f.id} style={styles.fieldContainer}>
+            <View key={index} style={styles.fieldContainer}>
               <View style={styles.fieldTextInput}>
                 <TextInput
                   onChangeText={(text) => {
@@ -53,6 +72,7 @@ const CategoryCard: React.FC<{
                   placeholder=""
                   mode="outlined"
                   label="Field"
+                  keyboardType={getKeyboardType(f.type)}
                 />
               </View>
               <View style={styles.fieldActions}>
@@ -73,13 +93,51 @@ const CategoryCard: React.FC<{
         </Card.Content>
         <Card.Actions style={styles.categoryActionBtnView}>
           <View style={styles.categoryActionBtnRow}>
-            <Button
-              onPress={() => {}}
-              style={styles.newFieldBtn}
-              mode="outlined"
+            <Menu
+              contentStyle={[styles.menuView]}
+              visible={visible}
+              onDismiss={closeMenu}
+              anchor={
+                <Button
+                  onPress={() => openMenu()}
+                  style={styles.newFieldBtn}
+                  mode="outlined"
+                >
+                  <Text style={styles.categoryActionBtnTxt}>ADD NEW FIELD</Text>
+                </Button>
+              }
             >
-              <Text style={styles.categoryActionBtnTxt}>ADD NEW FIELD</Text>
-            </Button>
+              <Menu.Item
+                onPress={() => {
+                  clickToAddField("text");
+                }}
+                title="Text"
+              />
+              <Divider />
+
+              <Menu.Item
+                onPress={() => {
+                  clickToAddField("date");
+                }}
+                title="Date"
+              />
+              <Divider />
+              <Menu.Item
+                onPress={() => {
+                  clickToAddField("checkbox");
+                }}
+                title="checkbox"
+              />
+              <Divider />
+
+              <Menu.Item
+                onPress={() => {
+                  clickToAddField("number");
+                }}
+                title="number"
+              />
+            </Menu>
+
             <Button
               textColor="blue"
               icon="delete"

@@ -56,6 +56,9 @@ const styles = StyleSheet.create({
   },
   newFieldBtn: { borderRadius: 5, marginRight: 5 },
   categoryActionBtnTxt: { color: "blue", fontWeight: "600" },
+  menuView: {
+    backgroundColor: "white",
+  },
 });
 
 export default styles;

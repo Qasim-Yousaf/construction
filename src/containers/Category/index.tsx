@@ -64,7 +64,21 @@ const Category: React.FC<Props> = ({ containerStyle, viewStyle }) => {
 
     setData(result);
   };
+  const handleAddField = (index: number, type: string) => {
+    let result = data.map((c, i) =>
+      i === index
+        ? {
+            ...c,
+            fields: [
+              ...c.fields,
+              { id: c.fields.length + 1, type: type, title: "" },
+            ],
+          }
+        : c
+    );
 
+    setData(result);
+  };
   const handleFieldValueChange = (
     index: number,
     fIndex: number,
@@ -101,6 +115,9 @@ const Category: React.FC<Props> = ({ containerStyle, viewStyle }) => {
                 clickToRemoveCategoryField={(fIndex: number) =>
                   handleRemoveCategoryField(index, fIndex)
                 }
+                clickToAddField={(type: string) => {
+                  handleAddField(index, type);
+                }}
               />
             );
           })}
