@@ -1,7 +1,7 @@
 export interface Category {
   id: number;
   name?: string;
-  fileds: Field[];
+  fields: Field[];
 }
 
 export interface Field {

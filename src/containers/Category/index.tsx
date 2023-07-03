@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { View, StyleProp, TextStyle, ViewStyle, FlatList } from "react-native";
+import {
+  View,
+  StyleProp,
+  TextStyle,
+  ViewStyle,
+  ScrollView,
+} from "react-native";
 import { Button, Text } from "react-native-paper";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { addCategory } from "../../store/CategoryReducer";
+import { CategoryItem, updateState } from "../../store/CategoryReducer";
 import styles from "./styles";
 import { CategoryCard } from "../../components";
-import { Category as CategoryType } from "../../types";
 
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
@@ -16,57 +21,97 @@ type Props = {
 
 const Category: React.FC<Props> = ({ containerStyle, viewStyle }) => {
   const dispatch = useAppDispatch();
+  const [data, setData] = useState<CategoryItem[]>([]);
   const { categories } = useAppSelector((state) => state.category);
 
+  React.useEffect(() => {
+    setData(categories);
+  }, []);
+
   const handleAddNewCategory = (): void => {
-    dispatch(
-      addCategory({
-        id: 2,
+    setData([
+      ...data,
+      {
+        id: categories.length + 1,
         name: "",
-        fileds: [
+        fields: [
           {
             id: 1,
-            title: "Model",
-            type: "textfield",
-          },
-          {
-            id: 2,
-            title: "Manufacturing Date",
-            type: "date",
-          },
-          {
-            id: 3,
-            title: "Does it work?",
-            type: "checkbox",
-          },
-          {
-            id: 4,
-            title: "Weight",
-            type: "number",
+            title: "",
+            type: "text",
           },
         ],
-      })
-    );
+      },
+    ]);
   };
 
-  const renderCategory = ({ item }: { item: CategoryType }) => (
-    <CategoryCard c={item} />
-  );
+  React.useEffect(() => {
+    dispatch(updateState({ categories: data }));
+  }, [data]);
+
+  const handleRemoveCategory = (id: number) =>
+    setData(data.filter((d) => d.id != id));
+
+  const handleRemoveCategoryField = (index: number, fIndex: number) => {
+    let result = data.map((c, i) =>
+      i === index
+        ? {
+            ...c,
+            fields: c.fields.filter((f, ind) => ind != fIndex),
+          }
+        : c
+    );
+
+    setData(result);
+  };
+
+  const handleFieldValueChange = (
+    index: number,
+    fIndex: number,
+    title: string,
+    type: string
+  ) => {
+    const newData = [...data];
+    newData[index].fields[fIndex].title = title;
+    newData[index].fields[fIndex].type = type;
+    setData([...newData]);
+  };
 
   return (
     <View style={[styles.container, containerStyle]}>
       <View style={[styles.body, containerStyle]}>
-        <FlatList
-          data={categories}
-          renderItem={renderCategory}
-          keyExtractor={(item) => item.name || Math.random().toString()}
-        />
+        <ScrollView>
+          {data.map((item, index) => {
+            return (
+              <CategoryCard
+                key={index}
+                c={item}
+                index={index}
+                onCategoryNameChange={(name: string) => {
+                  const newData = [...data];
+                  newData[index].name = name;
+                  setData([...newData]);
+                }}
+                clickToRemoveCategory={() => handleRemoveCategory(item.id)}
+                onFieldValueChange={(
+                  fIndex: number,
+                  title: string,
+                  type: string
+                ) => handleFieldValueChange(index, fIndex, title, type)}
+                clickToRemoveCategoryField={(fIndex: number) =>
+                  handleRemoveCategoryField(index, fIndex)
+                }
+              />
+            );
+          })}
+        </ScrollView>
       </View>
+
       <View style={[styles.footer, viewStyle]}>
         <Button
           mode="outlined"
           style={[styles.addNewBtn]}
-          onPress={handleAddNewCategory}
+          onPress={() => handleAddNewCategory()}
         >
           <Text style={{ color: "white", fontSize: 12, fontWeight: "bold" }}>
             ADD NEW CATEGORY

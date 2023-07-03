@@ -1,14 +1,15 @@
 import { createSlice, PayloadAction, Slice } from "@reduxjs/toolkit";
+import { State } from "react-native-gesture-handler";
 
 const DEMO_DATA = [
   {
     id: 1,
     name: "Buldozer",
-    fileds: [
+    fields: [
       {
         id: 1,
         title: "Model",
-        type: "textfield",
+        type: "text",
       },
       {
         id: 2,
@@ -34,21 +35,37 @@ type CategoryFieldItemValue = boolean | string | number | Date;
 interface CategoryFieldItem {
   [key: string]: CategoryFieldItemValue;
 }
-interface CategoryItem {
+export interface CategoryItem {
   id: number;
   name: string;
-  fileds: Array<CategoryFieldItem>;
+  fields: Array<CategoryFieldItem>;
 }
 interface CategoryState {
-  value: number;
   categories: Array<CategoryItem>;
-  data: number;
+}
+interface UpdateCategoryName {
+  id: number;
+  value: string;
 }
 
+interface RemoveField {
+  id: number;
+  fieldId: number;
+}
+interface UpdateFieldType {
+  categoryId: number;
+  fieldId: number;
+  type: string;
+  title: string;
+}
+
+interface AddFieldType {
+  categoryId: number;
+  type: string;
+  title: string;
+}
 const initialState: CategoryState = {
-  value: 0,
-  categories: DEMO_DATA,
-  data: 10,
+  categories: [],
 };
 
 const categorySlice: Slice<CategoryState> = createSlice({
@@ -64,16 +81,85 @@ const categorySlice: Slice<CategoryState> = createSlice({
     removeCategory: (state = initialState, action: PayloadAction<number>) => {
       state.categories = state.categories.filter((c) => c.id != action.payload);
     },
-    clear: (state = initialState) => {
-      state.value = 0;
+    updateCategoryName: (
+      state = initialState,
+      action: PayloadAction<UpdateCategoryName>
+    ) => {
+      console.log("payload", action.payload);
+      state;
+
+      // state.categories = state.categories.map((c) =>
+      //   c.id === action.payload.id
+      //     ? {
+      //         ...c,
+      //         name: action.payload.value,
+      //       }
+      //     : c
+      // );
     },
-    increment: (state = initialState) => {
-      state.value += 1;
+    updateState: (state, action) => {
+      state.categories = action.payload.categories;
+    },
+    removeField: (state, action: PayloadAction<RemoveField>) => {
+      state.categories = state.categories.map((c) =>
+        c.id === action.payload.id
+          ? {
+              ...c,
+              fields: c.fields.filter((f) => f.id != action.payload.fieldId),
+            }
+          : c
+      );
+    },
+    addField: (state = initialState, action: PayloadAction<AddFieldType>) => {
+      state.categories = state.categories.map((c) =>
+        c.id === action.payload.categoryId
+          ? {
+              ...c,
+              fields: [
+                ...c.fields,
+                {
+                  id: c.fields.length + 1,
+                  title: action.payload.title,
+                  type: action.payload.type,
+                },
+              ],
+            }
+          : c
+      );
+    },
+
+    updateField: (
+      state = initialState,
+      action: PayloadAction<UpdateFieldType>
+    ) => {
+      state.categories = state.categories.map((c) =>
+        c.id === action.payload.categoryId
+          ? {
+              ...c,
+              fields: c.fields.map((f) =>
+                f.id === action.payload.fieldId
+                  ? {
+                      ...f,
+                      type: action.payload.type,
+                      title: action.payload.title,
+                    }
+                  : f
+              ),
+            }
+          : c
+      );
     },
   },
 });
 
-export const { addCategory, removeCategory, clear, increment } =
-  categorySlice.actions;
+export const {
+  addCategory,
+  removeCategory,
+  updateCategoryName,
+  updateState,
+  addField,
+  updateField,
+  removeField,
+} = categorySlice.actions;
 
 export default categorySlice.reducer;
