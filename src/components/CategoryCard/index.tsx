@@ -13,6 +13,27 @@ import styles from "./styles";
 
 import { CategoryItem } from "../../store/CategoryReducer";
 
+const menu: Array<{ id: number; title: string }> = [
+  {
+    id: 1,
+    title: "text",
+  },
+  {
+    id: 2,
+    title: "Date",
+  },
+
+  {
+    id: 3,
+    title: "checkbox",
+  },
+
+  {
+    id: 4,
+    title: "number",
+  },
+];
+
 const CategoryCard: React.FC<{
   c: CategoryItem;
   index: number;
@@ -31,7 +52,8 @@ const CategoryCard: React.FC<{
     clickToRemoveCategoryField,
     clickToAddField,
   }) => {
-    const [visible, setVisible] = React.useState(false);
+    const [activeId, setActiveId] = React.useState<string>("");
+    const [visible, setVisible] = React.useState<boolean>(false);
     const openMenu = () => setVisible(true);
     const closeMenu = () => setVisible(false);
 
@@ -40,6 +62,7 @@ const CategoryCard: React.FC<{
         return "numeric";
       } else return "default";
     };
+
     return (
       <Card style={styles.card} mode="elevated" key={index}>
         <Card.Title
@@ -73,11 +96,42 @@ const CategoryCard: React.FC<{
                   mode="outlined"
                   label="Field"
                   keyboardType={getKeyboardType(f.type)}
+                  value={f.title}
                 />
               </View>
               <View style={styles.fieldActions}>
                 <View style={styles.fieldType}>
-                  <Text style={styles.fieldTypeTxt}>{f?.type}</Text>
+                  <Menu
+                    contentStyle={[styles.menuView]}
+                    visible={
+                      activeId === f.type + "" + index && visible === true
+                        ? true
+                        : false
+                    }
+                    onDismiss={closeMenu}
+                    anchor={
+                      <Button
+                        onPress={() => {
+                          setActiveId(f.type + "" + index), openMenu();
+                        }}
+                        mode="text"
+                      >
+                        <Text style={styles.fieldTypeTxt}>{f?.type}</Text>
+                      </Button>
+                    }
+                  >
+                    {menu.map((m) => (
+                      <Menu.Item
+                        key={m.id}
+                        onPress={() => {
+                          // clickToAddField(m.title);
+                          onFieldValueChange(index, "", m.title);
+                          closeMenu();
+                        }}
+                        title={m.title}
+                      />
+                    ))}
+                  </Menu>
                 </View>
                 <View style={styles.fieldDeleteView}>
                   <IconButton
@@ -95,11 +149,18 @@ const CategoryCard: React.FC<{
           <View style={styles.categoryActionBtnRow}>
             <Menu
               contentStyle={[styles.menuView]}
-              visible={visible}
+              visible={
+                activeId === "add-new-field" + index && visible === true
+                  ? true
+                  : false
+              }
               onDismiss={closeMenu}
               anchor={
                 <Button
-                  onPress={() => openMenu()}
+                  onPress={() => {
+                    setActiveId("add-new-field" + index);
+                    openMenu();
+                  }}
                   style={styles.newFieldBtn}
                   mode="outlined"
                 >
@@ -107,35 +168,16 @@ const CategoryCard: React.FC<{
                 </Button>
               }
             >
-              <Menu.Item
-                onPress={() => {
-                  clickToAddField("text");
-                }}
-                title="Text"
-              />
-              <Divider />
-
-              <Menu.Item
-                onPress={() => {
-                  clickToAddField("date");
-                }}
-                title="Date"
-              />
-              <Divider />
-              <Menu.Item
-                onPress={() => {
-                  clickToAddField("checkbox");
-                }}
-                title="checkbox"
-              />
-              <Divider />
-
-              <Menu.Item
-                onPress={() => {
-                  clickToAddField("number");
-                }}
-                title="number"
-              />
+              {menu.map((m) => (
+                <Menu.Item
+                  key={m.id}
+                  onPress={() => {
+                    clickToAddField(m.title);
+                    closeMenu();
+                  }}
+                  title={m.title}
+                />
+              ))}
             </Menu>
 
             <Button
