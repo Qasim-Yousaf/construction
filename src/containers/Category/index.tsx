@@ -91,6 +91,23 @@ const Category: React.FC<Props> = ({ containerStyle, viewStyle }) => {
     setData([...newData]);
   };
 
+  const handleMainTitle = (index: number, fIndex: number) => {
+    let result = data.map((c, i) =>
+      i === index
+        ? {
+            ...c,
+            fields: c.fields.map((f, ind) =>
+              ind === fIndex
+                ? { ...f, isMainTitle: true }
+                : { ...f, isMainTitle: false }
+            ),
+          }
+        : c
+    );
+
+    setData(result);
+  };
+
   return (
     <View style={[styles.container, containerStyle]}>
       <View style={[styles.body, containerStyle]}>
@@ -118,6 +135,9 @@ const Category: React.FC<Props> = ({ containerStyle, viewStyle }) => {
                 clickToAddField={(type: string) => {
                   handleAddField(index, type);
                 }}
+                clickToUpdateMainTitle={(fIndex: number) =>
+                  handleMainTitle(index, fIndex)
+                }
               />
             );
           })}

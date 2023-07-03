@@ -10,27 +10,31 @@ const DEMO_DATA = [
         id: 1,
         title: "Model",
         type: "text",
+        isMainTitle: false,
       },
       {
         id: 2,
         title: "Manufacturing Date",
         type: "date",
+        isMainTitle: false,
       },
       {
         id: 3,
         title: "Does it work?",
         type: "checkbox",
+        isMainTitle: false,
       },
       {
         id: 4,
         title: "Weight",
         type: "number",
+        isMainTitle: false,
       },
     ],
   },
 ];
 
-type CategoryFieldItemValue = boolean | string | number | Date;
+type CategoryFieldItemValue = boolean | string | number;
 
 interface CategoryFieldItem {
   [key: string]: CategoryFieldItemValue;

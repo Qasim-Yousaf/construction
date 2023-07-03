@@ -42,6 +42,7 @@ const CategoryCard: React.FC<{
   onFieldValueChange: (fIndex: number, title: string, type: string) => void;
   clickToRemoveCategoryField: (fIndex: number) => void;
   clickToAddField: (type: string) => void;
+  clickToUpdateMainTitle: (fIndex: number) => void;
 }> = React.memo(
   ({
     c,
@@ -51,6 +52,7 @@ const CategoryCard: React.FC<{
     onFieldValueChange,
     clickToRemoveCategoryField,
     clickToAddField,
+    clickToUpdateMainTitle,
   }) => {
     const [activeId, setActiveId] = React.useState<string>("");
     const [visible, setVisible] = React.useState<boolean>(false);
@@ -96,7 +98,7 @@ const CategoryCard: React.FC<{
                   mode="outlined"
                   label="Field"
                   keyboardType={getKeyboardType(f.type)}
-                  value={f.title}
+                  value={f?.title}
                 />
               </View>
               <View style={styles.fieldActions}>
@@ -124,7 +126,6 @@ const CategoryCard: React.FC<{
                       <Menu.Item
                         key={m.id}
                         onPress={() => {
-                          // clickToAddField(m.title);
                           onFieldValueChange(index, "", m.title);
                           closeMenu();
                         }}
@@ -144,6 +145,51 @@ const CategoryCard: React.FC<{
               </View>
             </View>
           ))}
+          <View>
+            <Menu
+              contentStyle={[styles.menuView]}
+              visible={
+                activeId === "-title-" + index && visible === true
+                  ? true
+                  : false
+              }
+              onDismiss={closeMenu}
+              anchor={
+                <Button
+                  onPress={() => {
+                    setActiveId("-title-" + index), openMenu();
+                  }}
+                  mode="contained"
+                  style={{
+                    backgroundColor: "blue",
+                    borderRadius: 5,
+                    marginVertical: 5,
+                    flexDirection: "row",
+                  }}
+                >
+                  <Text style={[styles.fieldTypeTxt, { color: "white" }]}>
+                    title field :{" "}
+                  </Text>
+                  {c.fields.map((f) => {
+                    if (f.isMainTitle) {
+                      return <Text style={{ color: "white" }}>{f.title}</Text>;
+                    }
+                  })}
+                </Button>
+              }
+            >
+              {c.fields.map((f, index) => (
+                <Menu.Item
+                  key={index}
+                  onPress={() => {
+                    clickToUpdateMainTitle(index);
+                    closeMenu();
+                  }}
+                  title={f.title}
+                />
+              ))}
+            </Menu>
+          </View>
         </Card.Content>
         <Card.Actions style={styles.categoryActionBtnView}>
           <View style={styles.categoryActionBtnRow}>
