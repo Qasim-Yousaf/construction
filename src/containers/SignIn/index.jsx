@@ -17,13 +17,19 @@ import {
   PRIMARY_COLOR,
 } from "../../constants";
 import { TextInput } from "react-native-paper";
-
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Fontisto } from "@expo/vector-icons";
 const SignIn = () => {
   const navigation = useNavigation();
 
   const [email, setemail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(true);
+  const [rememberMe, setRememberMe] = React.useState(false);
+  const [error, setError] = React.useState({
+    email: false,
+    password: false,
+  });
   const handleLogin = () => {
     // Implement login logic here
     console.log("Logging in...");
@@ -56,6 +62,7 @@ const SignIn = () => {
                   fontSize: 14,
                 }}
                 placeholderTextColor={"black"}
+                left={<TextInput.Icon style={{ marginTop: 15 }} icon="email" />}
               />
               <TextInput
                 mode="outlined"
@@ -71,11 +78,28 @@ const SignIn = () => {
                 placeholderTextColor={"black"}
                 right={
                   <TextInput.Icon
+                    style={{ marginTop: 15 }}
                     icon={showPassword ? "eye" : "eye-off"}
                     onPress={() => setShowPassword(!showPassword)}
                   />
                 }
               />
+              <TouchableOpacity
+                style={styles.remberMe}
+                onPress={() => setRememberMe(!rememberMe)}
+              >
+                {rememberMe ? (
+                  <MaterialCommunityIcons
+                    name="checkbox-outline"
+                    size={26}
+                    color="black"
+                  />
+                ) : (
+                  <Fontisto name="checkbox-passive" size={19} color="black" />
+                )}
+
+                <Text style={styles.rememberMeTxt}>Remember me</Text>
+              </TouchableOpacity>
 
               <TouchableOpacity onPress={() => {}} style={styles.btn}>
                 <Text style={styles.signIn}>Sign Up</Text>
@@ -244,6 +268,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
+  },
+  remberMe: {
+    alignContent: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  rememberMeTxt: {
+    fontFamily: FONT_FAMILY_REGULAR,
+    fontSize: 14,
+    marginLeft: 10,
   },
 });
 
