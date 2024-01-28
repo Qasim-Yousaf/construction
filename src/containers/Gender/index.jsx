@@ -202,36 +202,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
-  interestChip: {
-    borderWidth: 2,
-    borderColor: PRIMARY_COLOR,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    // height: 50,
-    marginVertical: 10,
-    marginHorizontal: 5,
-    borderRadius: 35,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  selectedInterest: {
-    borderWidth: 2,
-    borderColor: PRIMARY_COLOR,
-    backgroundColor: PRIMARY_COLOR,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    marginVertical: 10,
-    marginHorizontal: 5,
-    borderRadius: 35,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  selectedInterestTxt: {
-    fontFamily: FONT_FAMILY_BOLD,
-    fontSize: 12,
-    color: "#ffffff",
-  },
 
   interestTxt: {
     fontFamily: FONT_FAMILY_BOLD,
