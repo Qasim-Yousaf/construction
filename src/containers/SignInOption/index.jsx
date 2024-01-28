@@ -64,12 +64,15 @@ const SignInOption = (props) => {
           <Text style={styles.or}>or</Text>
         </View>
 
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => navigation.navigate("SignIn")}
+        >
           <Text style={styles.signIn}>Sign In with password</Text>
         </TouchableOpacity>
         <View style={styles.noAcc}>
           <Text style={styles.noAccTxt}>Don't have account? </Text>
-          <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
+          <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
             <Text style={styles.signUp}>Sign up</Text>
           </TouchableOpacity>
         </View>

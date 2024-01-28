@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { SignInOption, OnBoarding, SignIn } from "../containers";
+import { SignInOption, OnBoarding, SignIn, SignUp } from "../containers";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -19,6 +19,7 @@ const Navigation = () => {
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="SignInOption" component={SignInOption} />
         <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="SignUp" component={SignUp} />
       </Stack.Navigator>
 
       {/* <Drawer.Navigator initialRouteName="OnBoarding">

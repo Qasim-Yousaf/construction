@@ -49,7 +49,7 @@ const SignIn = () => {
             />
           </TouchableOpacity>
           <View style={styles.body}>
-            <Text style={styles.boldHeading}>Create your Account</Text>
+            <Text style={styles.boldHeading}>Login to your Account</Text>
             <View>
               <TextInput
                 mode="outlined"
@@ -76,6 +76,7 @@ const SignIn = () => {
                   fontSize: 14,
                 }}
                 placeholderTextColor={"black"}
+                left={<TextInput.Icon style={{ marginTop: 15 }} icon="lock" />}
                 right={
                   <TextInput.Icon
                     style={{ marginTop: 15 }}
@@ -98,14 +99,23 @@ const SignIn = () => {
                   <Fontisto name="checkbox-passive" size={19} color="black" />
                 )}
 
-                <Text style={styles.rememberMeTxt}>Remember me</Text>
+                <Text style={[styles.rememberMeTxt]}>Remember me</Text>
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => {}} style={styles.btn}>
-                <Text style={styles.signIn}>Sign Up</Text>
+                <Text style={styles.signIn}>Sign In</Text>
               </TouchableOpacity>
             </View>
-
+            <TouchableOpacity style={styles.remberMe}>
+              <Text
+                style={[
+                  styles.rememberMeTxt,
+                  { fontFamily: FONT_FAMILY_BOLD, color: PRIMARY_COLOR },
+                ]}
+              >
+                Forgot the Password?
+              </Text>
+            </TouchableOpacity>
             <View>
               <View style={styles.divider}>
                 <View style={styles.line} />
@@ -136,9 +146,9 @@ const SignIn = () => {
             </View>
 
             <View style={styles.noAcc}>
-              <Text style={styles.noAccTxt}>Already have account? </Text>
-              <TouchableOpacity>
-                <Text style={styles.signUp}>Sign In</Text>
+              <Text style={styles.noAccTxt}>Don't have account? </Text>
+              <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+                <Text style={styles.signUp}>Sign Up</Text>
               </TouchableOpacity>
             </View>
           </View>
