@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "construction",
-    "slug": "construction",
+    "slug": "fizbe",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -21,10 +19,36 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "fizbe.com"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6a4b6595-73a0-4c55-8e3f-7399c3194dad"
+      }
+    },
+    "owner": "qasim_yousaf",
+    "build": {
+      "preview": {
+        "android": {
+          "buildType": "apk"
+        }
+      },
+      "preview2": {
+        "android": {
+          "gradleCommand": ":app:assembleRelease"
+        }
+      },
+      "preview3": {
+        "developmentClient": true
+      },
+      "preview4": {
+        "distribution": "internal"
+      },
+      "production": {}
     }
   }
 }
