@@ -5,7 +5,7 @@ import { OnBoarding } from "./OnBoarding";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 import { Interest } from "./Interest";
-
+import { Gender } from "./Gender";
 export {
   Dashboard,
   Category,
@@ -14,4 +14,5 @@ export {
   SignIn,
   SignUp,
   Interest,
+  Gender,
 };

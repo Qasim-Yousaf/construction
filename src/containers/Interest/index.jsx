@@ -124,11 +124,17 @@ const Interest = () => {
         </ScrollView>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.skip}>
+        <TouchableOpacity
+          style={styles.skip}
+          onPress={() => navigation.navigate("Gender")}
+        >
           <Text style={styles.skipTxt}>Skip</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.continue}>
+        <TouchableOpacity
+          style={styles.continue}
+          onPress={() => navigation.navigate("Gender")}
+        >
           <Text style={styles.continueTxt}>Continue</Text>
         </TouchableOpacity>
       </View>
