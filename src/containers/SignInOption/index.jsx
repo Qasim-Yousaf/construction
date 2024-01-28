@@ -16,23 +16,48 @@ import {
 } from "../../constants";
 import { Divider } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 const SignInOption = (props) => {
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View style={styles.backBtnHeader}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("OnBoarding")}
+          style={styles.backBtn}
+        >
+          <Image
+            source={require("../../../assets/images/arrowLeft.png")}
+            style={[styles.icon]}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={{ flex: 1 }}>
         <Image
           source={require("../../../assets/images/222.png")}
           style={styles.img}
         />
         <Text style={styles.text}>Let's you in</Text>
         <TouchableOpacity style={styles.card}>
+          <Image
+            source={require("../../../assets/images/facebook.png")}
+            style={styles.icon}
+          />
           <Text style={styles.cardTxt}>Continue with facebook</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.card}>
+          <Image
+            source={require("../../../assets/images/google.png")}
+            style={styles.icon}
+          />
           <Text style={styles.cardTxt}>Continue with Google</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.card}>
+          <Image
+            source={require("../../../assets/images/apple.png")}
+            style={styles.icon}
+          />
           <Text style={styles.cardTxt}>Continue with Apple</Text>
         </TouchableOpacity>
         <View style={styles.divider}>
@@ -40,7 +65,7 @@ const SignInOption = (props) => {
         </View>
 
         <TouchableOpacity
-          onPress={() => console.log("Pressed")}
+          onPress={() => navigation.navigate("SignIn")}
           style={styles.btn}
         >
           <Text style={styles.signIn}>Sign In with password</Text>
@@ -87,10 +112,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
     alignSelf: "center",
+    flexDirection: "row",
   },
   cardTxt: {
-    fontFamily: FONT_FAMILY_REGULAR,
-    fontSize: 16,
+    fontFamily: FONT_FAMILY_BOLD,
+    fontSize: 12,
     fontWeight: "500",
   },
   divider: {
@@ -104,6 +130,7 @@ const styles = StyleSheet.create({
   or: {
     fontFamily: FONT_FAMILY_BOLD,
     fontSize: 14,
+    marginTop: 10,
   },
   signIn: {
     fontFamily: FONT_FAMILY_BOLD,
@@ -136,6 +163,24 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY_BOLD,
     fontSize: 12,
     color: PRIMARY_COLOR,
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
+  },
+  backBtnHeader: {
+    height: 50,
+    width: "100%",
+    paddingHorizontal: 20,
+    alignItems: "flex-start",
+    justifyContent: "center",
+  },
+  backBtn: {
+    width: 40,
+    height: 40,
+    alignItems: "flex-start",
+    justifyContent: "center",
   },
 });
 
