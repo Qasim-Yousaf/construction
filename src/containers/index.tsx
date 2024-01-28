@@ -4,5 +4,14 @@ import { SignInOption } from "./SignInOption";
 import { OnBoarding } from "./OnBoarding";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
+import { Interest } from "./Interest";
 
-export { Dashboard, Category, SignInOption, OnBoarding, SignIn, SignUp };
+export {
+  Dashboard,
+  Category,
+  SignInOption,
+  OnBoarding,
+  SignIn,
+  SignUp,
+  Interest,
+};
