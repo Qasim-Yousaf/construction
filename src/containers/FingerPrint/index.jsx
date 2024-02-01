@@ -73,7 +73,7 @@ const FingerPrint = () => {
           </View>
         </ScrollView>
 
-        <Modal isVisible={isModalVisible}>
+        <Modal isVisible={isModalVisible} backdropColor="transparent">
           <View
             style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
           >
@@ -104,6 +104,23 @@ const FingerPrint = () => {
                 Your account is ready to use. You will be redirected to home
                 page after few seconds.
               </Text>
+
+              <TouchableOpacity
+                onPress={() => {
+                  toggleModal(), navigation.navigate("SignInOption");
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: FONT_FAMILY_BOLD,
+                    fontSize: 20,
+                    color: "white",
+                    marginTop: 20,
+                  }}
+                >
+                  CLOSE
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </Modal>
