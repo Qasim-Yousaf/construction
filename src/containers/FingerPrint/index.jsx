@@ -9,6 +9,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Dimensions,
+  Platform,
 } from "react-native";
 import {
   FONT_FAMILY_BOLD,
@@ -132,7 +133,7 @@ const FingerPrint = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingHorizontal: 20,
+    paddingHorizontal: Platform.OS === "ios" ? 20 : 0,
     backgroundColor: "white",
   },
   scrollContainer: {
@@ -159,7 +160,8 @@ const styles = StyleSheet.create({
   skip: {
     backgroundColor: "grey",
     height: 60,
-    width: 160,
+    width: Platform.OS === "ios" ? 160 : 140,
+
     borderRadius: 40,
     alignItems: "center",
     justifyContent: "center",
@@ -172,7 +174,8 @@ const styles = StyleSheet.create({
   continue: {
     backgroundColor: PRIMARY_COLOR,
     height: 60,
-    width: 160,
+    width: Platform.OS === "ios" ? 160 : 140,
+
     borderRadius: 40,
     alignItems: "center",
     justifyContent: "center",

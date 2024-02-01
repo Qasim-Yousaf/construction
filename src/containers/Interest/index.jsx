@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Platform,
 } from "react-native";
 import {
   FONT_FAMILY_BOLD,
@@ -14,6 +15,7 @@ import {
   PRIMARY_COLOR,
 } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
+import { CustomWrapper } from "../../components";
 
 const Interest = () => {
   const navigation = useNavigation();
@@ -78,79 +80,81 @@ const Interest = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backBtn}
-        >
-          <Image
-            source={require("../../../assets/images/arrowLeft.png")}
-            style={[styles.icon]}
-          />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Choose Your Interest</Text>
-      </View>
-      <View style={styles.body}>
-        <Text style={styles.subtitle}>
-          Choose Your Interest and get the best recommendation
-        </Text>
+    <CustomWrapper>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backBtn}
+          >
+            <Image
+              source={require("../../../assets/images/arrowLeft.png")}
+              style={[styles.icon]}
+            />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Choose Your Interest</Text>
+        </View>
+        <View style={styles.body}>
+          <Text style={styles.subtitle}>
+            Choose Your Interest and get the best recommendation
+          </Text>
 
-        <ScrollView
-          contentContainerStyle={{
-            flexWrap: "wrap",
-            flexDirection: "row",
-          }}
-        >
-          {interests.map((i, _) => (
-            <TouchableOpacity
-              style={[
-                styles.interestChip,
-                selectedInterest.includes(i) && styles.selectedInterest,
-              ]}
-              key={_}
-              onPress={() => toggleInterest(i)}
-            >
-              <Text
+          <ScrollView
+            contentContainerStyle={{
+              flexWrap: "wrap",
+              flexDirection: "row",
+            }}
+          >
+            {interests.map((i, _) => (
+              <TouchableOpacity
                 style={[
-                  styles.interestTxt,
-                  selectedInterest.includes(i) && styles.selectedInterestTxt,
+                  styles.interestChip,
+                  selectedInterest.includes(i) && styles.selectedInterest,
                 ]}
+                key={_}
+                onPress={() => toggleInterest(i)}
               >
-                {i}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </View>
-      <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.skip}
-          onPress={() => navigation.navigate("Gender")}
-        >
-          <Text style={styles.skipTxt}>Skip</Text>
-        </TouchableOpacity>
+                <Text
+                  style={[
+                    styles.interestTxt,
+                    selectedInterest.includes(i) && styles.selectedInterestTxt,
+                  ]}
+                >
+                  {i}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+        <View style={styles.footer}>
+          <TouchableOpacity
+            style={styles.skip}
+            onPress={() => navigation.navigate("Gender")}
+          >
+            <Text style={styles.skipTxt}>Skip</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.continue}
-          onPress={() => navigation.navigate("Gender")}
-        >
-          <Text style={styles.continueTxt}>Continue</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.continue}
+            onPress={() => navigation.navigate("Gender")}
+          >
+            <Text style={styles.continueTxt}>Continue</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </SafeAreaView>
+    </CustomWrapper>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20,
+    // paddingHorizontal: Platform.OS === "ios" ? 20 : 0,
+
     backgroundColor: "white",
   },
   header: {
     height: 60,
     flexDirection: "row",
-    paddingHorizontal: 20,
     alignItems: "center",
     justifyContent: "flex-start",
   },
@@ -159,16 +163,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    paddingHorizontal: 20,
   },
   body: {
     flex: 1,
-    paddingHorizontal: 20,
   },
   skip: {
     backgroundColor: "grey",
     height: 60,
-    width: 160,
+    width: Platform.OS === "ios" ? 160 : 140,
     borderRadius: 40,
     alignItems: "center",
     justifyContent: "center",
@@ -181,7 +183,8 @@ const styles = StyleSheet.create({
   continue: {
     backgroundColor: PRIMARY_COLOR,
     height: 60,
-    width: 160,
+    width: Platform.OS === "ios" ? 160 : 140,
+
     borderRadius: 40,
     alignItems: "center",
     justifyContent: "center",

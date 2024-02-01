@@ -17,67 +17,70 @@ import {
 import { Divider } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import { CustomWrapper } from "../../components";
 
 const SignInOption = (props) => {
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.backBtnHeader}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("OnBoarding")}
-          style={styles.backBtn}
-        >
-          <Image
-            source={require("../../../assets/images/arrowLeft.png")}
-            style={[styles.icon]}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={{ flex: 1 }}>
-        <Image
-          source={require("../../../assets/images/222.png")}
-          style={styles.img}
-        />
-        <Text style={styles.text}>Let's you in</Text>
-        <TouchableOpacity style={styles.card}>
-          <Image
-            source={require("../../../assets/images/facebook.png")}
-            style={styles.icon}
-          />
-          <Text style={styles.cardTxt}>Continue with facebook</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.card}>
-          <Image
-            source={require("../../../assets/images/google.png")}
-            style={styles.icon}
-          />
-          <Text style={styles.cardTxt}>Continue with Google</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.card}>
-          <Image
-            source={require("../../../assets/images/apple.png")}
-            style={styles.icon}
-          />
-          <Text style={styles.cardTxt}>Continue with Apple</Text>
-        </TouchableOpacity>
-        <View style={styles.divider}>
-          <Text style={styles.or}>or</Text>
-        </View>
-
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => navigation.navigate("SignIn")}
-        >
-          <Text style={styles.signIn}>Sign In with password</Text>
-        </TouchableOpacity>
-        <View style={styles.noAcc}>
-          <Text style={styles.noAccTxt}>Don't have account? </Text>
-          <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-            <Text style={styles.signUp}>Sign up</Text>
+    <CustomWrapper>
+      <View style={styles.container}>
+        <View style={styles.backBtnHeader}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("OnBoarding")}
+            style={styles.backBtn}
+          >
+            <Image
+              source={require("../../../assets/images/arrowLeft.png")}
+              style={[styles.icon]}
+            />
           </TouchableOpacity>
         </View>
+        <View style={{ flex: 1 }}>
+          <Image
+            source={require("../../../assets/images/222.png")}
+            style={styles.img}
+          />
+          <Text style={styles.text}>Let's you in</Text>
+          <TouchableOpacity style={styles.card}>
+            <Image
+              source={require("../../../assets/images/facebook.png")}
+              style={styles.icon}
+            />
+            <Text style={styles.cardTxt}>Continue with facebook</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.card}>
+            <Image
+              source={require("../../../assets/images/google.png")}
+              style={styles.icon}
+            />
+            <Text style={styles.cardTxt}>Continue with Google</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.card}>
+            <Image
+              source={require("../../../assets/images/apple.png")}
+              style={styles.icon}
+            />
+            <Text style={styles.cardTxt}>Continue with Apple</Text>
+          </TouchableOpacity>
+          <View style={styles.divider}>
+            <Text style={styles.or}>or</Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => navigation.navigate("SignIn")}
+          >
+            <Text style={styles.signIn}>Sign In with password</Text>
+          </TouchableOpacity>
+          <View style={styles.noAcc}>
+            <Text style={styles.noAccTxt}>Don't have account? </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+              <Text style={styles.signUp}>Sign up</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
-    </SafeAreaView>
+    </CustomWrapper>
   );
 };
 
@@ -172,7 +175,7 @@ const styles = StyleSheet.create({
   backBtnHeader: {
     height: 50,
     width: "100%",
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     alignItems: "flex-start",
     justifyContent: "center",
   },

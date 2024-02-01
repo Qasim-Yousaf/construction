@@ -10,6 +10,10 @@ import {
   ScrollView,
   Image,
   Dimensions,
+  Platform,
+  StatusBar,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import {
   FONT_FAMILY_BOLD,
@@ -19,6 +23,7 @@ import {
 import { TextInput } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
+import { CustomWrapper } from "../../components";
 const SignIn = () => {
   const navigation = useNavigation();
 
@@ -36,133 +41,130 @@ const SignIn = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
+    <CustomWrapper>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={styles.backBtn}
+      >
+        <Image
+          source={require("../../../assets/images/arrowLeft.png")}
+          style={[styles.icon]}
+        />
+      </TouchableOpacity>
+      <View style={styles.body}>
+        <Text style={styles.boldHeading}>Login to your Account</Text>
+        <View>
+          <TextInput
+            mode="outlined"
+            label="Email"
+            value={email}
+            onChangeText={(text) => setemail(text)}
+            style={styles.input}
+            contentStyle={{
+              fontFamily: FONT_FAMILY_REGULAR,
+              fontSize: 14,
+            }}
+            placeholderTextColor={"black"}
+            left={<TextInput.Icon style={{ marginTop: 15 }} icon="email" />}
+          />
+          <TextInput
+            mode="outlined"
+            label="Password"
+            secureTextEntry={showPassword}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            style={styles.input}
+            contentStyle={{
+              fontFamily: FONT_FAMILY_REGULAR,
+              fontSize: 14,
+            }}
+            placeholderTextColor={"black"}
+            left={<TextInput.Icon style={{ marginTop: 15 }} icon="lock" />}
+            right={
+              <TextInput.Icon
+                style={{ marginTop: 15 }}
+                icon={showPassword ? "eye" : "eye-off"}
+                onPress={() => setShowPassword(!showPassword)}
+              />
+            }
+          />
           <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.backBtn}
+            style={styles.remberMe}
+            onPress={() => setRememberMe(!rememberMe)}
           >
-            <Image
-              source={require("../../../assets/images/arrowLeft.png")}
-              style={[styles.icon]}
-            />
+            {rememberMe ? (
+              <MaterialCommunityIcons
+                name="checkbox-outline"
+                size={26}
+                color="black"
+              />
+            ) : (
+              <Fontisto name="checkbox-passive" size={19} color="black" />
+            )}
+
+            <Text style={[styles.rememberMeTxt]}>Remember me</Text>
           </TouchableOpacity>
-          <View style={styles.body}>
-            <Text style={styles.boldHeading}>Login to your Account</Text>
-            <View>
-              <TextInput
-                mode="outlined"
-                label="Email"
-                value={email}
-                onChangeText={(text) => setemail(text)}
-                style={styles.input}
-                contentStyle={{
-                  fontFamily: FONT_FAMILY_REGULAR,
-                  fontSize: 14,
-                }}
-                placeholderTextColor={"black"}
-                left={<TextInput.Icon style={{ marginTop: 15 }} icon="email" />}
-              />
-              <TextInput
-                mode="outlined"
-                label="Password"
-                secureTextEntry={showPassword}
-                value={password}
-                onChangeText={(text) => setPassword(text)}
-                style={styles.input}
-                contentStyle={{
-                  fontFamily: FONT_FAMILY_REGULAR,
-                  fontSize: 14,
-                }}
-                placeholderTextColor={"black"}
-                left={<TextInput.Icon style={{ marginTop: 15 }} icon="lock" />}
-                right={
-                  <TextInput.Icon
-                    style={{ marginTop: 15 }}
-                    icon={showPassword ? "eye" : "eye-off"}
-                    onPress={() => setShowPassword(!showPassword)}
-                  />
-                }
-              />
-              <TouchableOpacity
-                style={styles.remberMe}
-                onPress={() => setRememberMe(!rememberMe)}
-              >
-                {rememberMe ? (
-                  <MaterialCommunityIcons
-                    name="checkbox-outline"
-                    size={26}
-                    color="black"
-                  />
-                ) : (
-                  <Fontisto name="checkbox-passive" size={19} color="black" />
-                )}
 
-                <Text style={[styles.rememberMeTxt]}>Remember me</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={() => {}} style={styles.btn}>
-                <Text style={styles.signIn}>Sign In</Text>
-              </TouchableOpacity>
-            </View>
-            <TouchableOpacity style={styles.remberMe}>
-              <Text
-                style={[
-                  styles.rememberMeTxt,
-                  { fontFamily: FONT_FAMILY_BOLD, color: PRIMARY_COLOR },
-                ]}
-              >
-                Forgot the Password?
-              </Text>
-            </TouchableOpacity>
-            <View>
-              <View style={styles.divider}>
-                <View style={styles.line} />
-                <Text style={styles.or}>or continue with</Text>
-                <View style={styles.line} />
-              </View>
-              <View style={styles.socialContainer}>
-                <TouchableOpacity style={styles.socialBtn}>
-                  <Image
-                    source={require("../../../assets/images/facebook.png")}
-                    style={[{ width: 25, height: 25 }]}
-                  />
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.socialBtn}>
-                  <Image
-                    source={require("../../../assets/images/google.png")}
-                    style={[{ width: 25, height: 25 }]}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.socialBtn}>
-                  <Image
-                    source={require("../../../assets/images/apple.png")}
-                    style={[{ width: 25, height: 25 }]}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={styles.noAcc}>
-              <Text style={styles.noAccTxt}>Don't have account? </Text>
-              <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-                <Text style={styles.signUp}>Sign Up</Text>
-              </TouchableOpacity>
-            </View>
+          <TouchableOpacity onPress={() => {}} style={styles.btn}>
+            <Text style={styles.signIn}>Sign In</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={styles.remberMe}>
+          <Text
+            style={[
+              styles.rememberMeTxt,
+              { fontFamily: FONT_FAMILY_BOLD, color: PRIMARY_COLOR },
+            ]}
+          >
+            Forgot the Password?
+          </Text>
+        </TouchableOpacity>
+        <View>
+          <View style={styles.divider}>
+            <View style={styles.line} />
+            <Text style={styles.or}>or continue with</Text>
+            <View style={styles.line} />
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          <View style={styles.socialContainer}>
+            <TouchableOpacity style={styles.socialBtn}>
+              <Image
+                source={require("../../../assets/images/facebook.png")}
+                style={[{ width: 25, height: 25 }]}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.socialBtn}>
+              <Image
+                source={require("../../../assets/images/google.png")}
+                style={[{ width: 25, height: 25 }]}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.socialBtn}>
+              <Image
+                source={require("../../../assets/images/apple.png")}
+                style={[{ width: 25, height: 25 }]}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.noAcc}>
+          <Text style={styles.noAccTxt}>Don't have account? </Text>
+          <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+            <Text style={styles.signUp}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </CustomWrapper>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20,
     backgroundColor: "#ffffff",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight * 1 : 0,
+    paddingHorizontal: Platform.OS === "android" ? 10 : 20,
   },
   scrollContainer: {
     flexGrow: 1,

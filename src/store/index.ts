@@ -1,7 +1,8 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+// import storage from "redux-persist/lib/storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Import reducers
 import categoryReducer from "./CategoryReducer";
@@ -12,7 +13,7 @@ type RootState = ReturnType<typeof store.getState>;
 // Create a redux-persist configuration object
 const persistConfig = {
   key: "root",
-  storage,
+  storage: AsyncStorage,
   whitelist: ["category"], // Specify the reducers to persist
 };
 

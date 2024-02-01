@@ -1,3 +1,4 @@
 import CategoryCard from "./CategoryCard";
 import { OptInput } from "./OptInput";
-export { CategoryCard, OptInput };
+import { CustomWrapper } from "./CustomWrapper";
+export { CategoryCard, OptInput, CustomWrapper };

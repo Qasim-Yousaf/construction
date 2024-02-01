@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import {
   FONT_FAMILY_BOLD,
@@ -79,11 +80,12 @@ const Pin = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingHorizontal: 20,
+    paddingHorizontal: Platform.OS === "ios" ? 20 : 0,
     backgroundColor: "white",
   },
   scrollContainer: {
     flexGrow: 1,
+    paddingHorizontal: Platform.OS === "ios" ? 20 : 0,
   },
   header: {
     height: 60,
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
   },
   body: {
     flex: 1,
@@ -106,7 +108,8 @@ const styles = StyleSheet.create({
   skip: {
     backgroundColor: "grey",
     height: 60,
-    width: 160,
+    width: Platform.OS === "ios" ? 160 : 140,
+
     borderRadius: 40,
     alignItems: "center",
     justifyContent: "center",
@@ -119,7 +122,8 @@ const styles = StyleSheet.create({
   continue: {
     backgroundColor: PRIMARY_COLOR,
     height: 60,
-    width: 160,
+    width: Platform.OS === "ios" ? 160 : 140,
+
     borderRadius: 40,
     alignItems: "center",
     justifyContent: "center",
