@@ -1,3 +1,3 @@
 import CategoryCard from "./CategoryCard";
-
-export { CategoryCard };
+import { OptInput } from "./OptInput";
+export { CategoryCard, OptInput };

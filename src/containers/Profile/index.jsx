@@ -57,7 +57,6 @@ const ProfileSetup = () => {
 
     if (!result.canceled) {
       let object = result.assets[0];
-      console.log("result.......", JSON.stringify(object, undefined, 2));
       updateState("image", object);
     }
   };
@@ -164,7 +163,12 @@ const ProfileSetup = () => {
               <Text style={styles.skipTxt}>Skip</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.continue}>
+            <TouchableOpacity
+              style={styles.continue}
+              onPress={() => {
+                navigation.navigate("Pin");
+              }}
+            >
               <Text style={styles.continueTxt}>Continue</Text>
             </TouchableOpacity>
           </View>

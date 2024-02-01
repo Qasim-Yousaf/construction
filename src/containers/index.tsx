@@ -8,6 +8,7 @@ import { Interest } from "./Interest";
 import { Gender } from "./Gender";
 import { DateOfBirth } from "./DateOfBirth";
 import { ProfileSetup } from "./Profile";
+import { Pin } from "./Pin";
 
 export {
   Dashboard,
@@ -20,4 +21,5 @@ export {
   Gender,
   DateOfBirth,
   ProfileSetup,
+  Pin,
 };
