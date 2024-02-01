@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
+  Dimensions,
 } from "react-native";
 import {
   FONT_FAMILY_BOLD,
@@ -15,10 +16,15 @@ import {
   PRIMARY_COLOR,
 } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
-import { Avatar } from "react-native-paper";
+import Modal from "react-native-modal";
 
 const FingerPrint = () => {
   const navigation = useNavigation();
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -61,11 +67,46 @@ const FingerPrint = () => {
               <Text style={styles.skipTxt}>Skip</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.continue}>
+            <TouchableOpacity style={styles.continue} onPress={toggleModal}>
               <Text style={styles.continueTxt}>Continue</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
+
+        <Modal isVisible={isModalVisible}>
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <View style={styles.modelView}>
+              <Image
+                source={require("../../../assets/images/cong.png")}
+                style={[styles.cong]}
+              />
+              <Text
+                style={{
+                  fontFamily: FONT_FAMILY_BOLD,
+                  fontSize: 24,
+                  color: "#ffffff",
+                }}
+              >
+                Congratulation!
+              </Text>
+              <Text
+                style={{
+                  fontFamily: FONT_FAMILY_REGULAR,
+                  fontSize: 18,
+                  color: "#ffffff",
+                  marginTop: 30,
+                  textAlign: "center",
+                  paddingHorizontal: 15,
+                }}
+              >
+                Your account is ready to use. You will be redirected to home
+                page after few seconds.
+              </Text>
+            </View>
+          </View>
+        </Modal>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -177,6 +218,19 @@ const styles = StyleSheet.create({
   FingerPrint: {
     width: 250,
     height: 250,
+  },
+  modelView: {
+    width: Dimensions.get("screen").width - 20,
+    height: 400,
+    backgroundColor: PRIMARY_COLOR,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  cong: {
+    width: 150,
+    height: 150,
+    marginBottom: 20,
   },
 });
 
