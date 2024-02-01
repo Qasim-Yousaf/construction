@@ -56,6 +56,7 @@ const DateOfBirth = () => {
           <TextInput
             editable={false}
             mode="outlined"
+            label={"Date Of Birth"}
             value={"12/27/1995"}
             style={styles.input}
             contentStyle={styles.txtContainer}

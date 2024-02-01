@@ -53,7 +53,7 @@ const SignUp = () => {
             <View>
               <TextInput
                 mode="outlined"
-                placeholder="Email"
+                label="Email"
                 value={email}
                 onChangeText={(text) => setemail(text)}
                 style={styles.input}
@@ -66,7 +66,7 @@ const SignUp = () => {
               />
               <TextInput
                 mode="outlined"
-                placeholder="Password"
+                label="Password"
                 secureTextEntry={showPassword}
                 value={password}
                 onChangeText={(text) => setPassword(text)}
