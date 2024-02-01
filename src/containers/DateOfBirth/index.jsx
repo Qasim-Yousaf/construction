@@ -18,85 +18,81 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-paper";
 import { Dimensions } from "react-native";
+import { CustomWrapper } from "../../components";
 
 const DateOfBirth = () => {
   const navigation = useNavigation();
   const [DOB, setDOB] = React.useState("12/27/1995");
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "android" ? "height" : "padding"}
-        style={styles.container}
-      >
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <View style={styles.header}>
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={styles.backBtn}
-            >
-              <Image
-                source={require("../../../assets/images/arrowLeft.png")}
-                style={[styles.icon]}
-              />
-            </TouchableOpacity>
-            <Text style={styles.headerTitle}>When is Your Birthday?</Text>
-          </View>
-          <View style={styles.body}>
-            <Text style={styles.subtitle}>
-              Your birthrday will not be shown to the public
-            </Text>
+    <CustomWrapper>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.header}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backBtn}
+          >
+            <Image
+              source={require("../../../assets/images/arrowLeft.png")}
+              style={[styles.icon]}
+            />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>When is Your Birthday?</Text>
+        </View>
+        <View style={styles.body}>
+          <Text style={styles.subtitle}>
+            Your birthrday will not be shown to the public
+          </Text>
 
-            <View
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={require("../../../assets/images/birthday.jpg")}
               style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
+                width: 250,
+                height: 250,
+                marginBottom: 10,
+                //   borderWidth: 1,
               }}
-            >
-              <Image
-                source={require("../../../assets/images/birthday.jpg")}
-                style={{
-                  width: 250,
-                  height: 250,
-                  marginBottom: 10,
-                  //   borderWidth: 1,
-                }}
-              />
+            />
 
-              <TextInput
-                mode="outlined"
-                label={"Date Of Birth"}
-                value={DOB}
-                style={styles.input}
-                contentStyle={styles.txtContainer}
-                placeholderTextColor={"black"}
-                onChangeText={(text) => setDOB(text)}
-              />
-            </View>
+            <TextInput
+              mode="outlined"
+              label={"Date Of Birth"}
+              value={DOB}
+              style={styles.input}
+              contentStyle={styles.txtContainer}
+              placeholderTextColor={"black"}
+              onChangeText={(text) => setDOB(text)}
+            />
           </View>
-          <View style={styles.footer}>
-            <TouchableOpacity style={styles.skip}>
-              <Text style={styles.skipTxt}>Skip</Text>
-            </TouchableOpacity>
+        </View>
+        <View style={styles.footer}>
+          <TouchableOpacity style={styles.skip}>
+            <Text style={styles.skipTxt}>Skip</Text>
+          </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.continue}
-              onPress={() => navigation.navigate("ProfileSetup")}
-            >
-              <Text style={styles.continueTxt}>Continue</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          <TouchableOpacity
+            style={styles.continue}
+            onPress={() => navigation.navigate("ProfileSetup")}
+          >
+            <Text style={styles.continueTxt}>Continue</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </CustomWrapper>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: Platform.OS === "ios" ? 20 : 0,
+    // paddingHorizontal: Platform.OS === "ios" ? 20 : 0,
     backgroundColor: "white",
   },
   scrollContainer: {
@@ -105,7 +101,7 @@ const styles = StyleSheet.create({
   header: {
     height: 60,
     flexDirection: "row",
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     alignItems: "center",
     justifyContent: "flex-start",
   },
@@ -114,11 +110,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    paddingHorizontal: 20,
   },
   body: {
     flex: 1,
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
   },
   skip: {
     backgroundColor: "grey",

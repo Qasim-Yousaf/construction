@@ -105,7 +105,12 @@ const SignIn = () => {
             <Text style={[styles.rememberMeTxt]}>Remember me</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => {}} style={styles.btn}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Interest");
+            }}
+            style={styles.btn}
+          >
             <Text style={styles.signIn}>Sign In</Text>
           </TouchableOpacity>
         </View>

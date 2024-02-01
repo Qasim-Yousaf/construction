@@ -17,36 +17,42 @@ import {
 } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import { Avatar } from "react-native-paper";
-import { OptInput } from "../../components";
+import { CustomWrapper, OptInput } from "../../components";
 
 const Pin = () => {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <View style={styles.header}>
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={styles.backBtn}
-            >
-              <Image
-                source={require("../../../assets/images/arrowLeft.png")}
-                style={[styles.icon]}
-              />
-            </TouchableOpacity>
-            <Text style={styles.headerTitle}>Create a new Pin</Text>
-          </View>
-          <View style={styles.body}>
-            <Text style={styles.subtitle}>
-              Add a PIN number to make your account more secure
-            </Text>
+    <CustomWrapper>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.header}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backBtn}
+          >
+            <Image
+              source={require("../../../assets/images/arrowLeft.png")}
+              style={[styles.icon]}
+            />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Create a new Pin</Text>
+        </View>
+        <View style={styles.body}>
+          <Text style={styles.subtitle}>
+            Add a PIN number to make your account more secure
+          </Text>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <View
               style={{
-                flex: 1,
-                justifyContent: "center",
+                width: 100,
                 alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <OptInput
@@ -57,40 +63,37 @@ const Pin = () => {
               />
             </View>
           </View>
-          <View style={styles.footer}>
-            <TouchableOpacity style={styles.skip}>
-              <Text style={styles.skipTxt}>Skip</Text>
-            </TouchableOpacity>
+        </View>
+        <View style={styles.footer}>
+          <TouchableOpacity style={styles.skip}>
+            <Text style={styles.skipTxt}>Skip</Text>
+          </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.continue}
-              onPress={() => {
-                navigation.navigate("FingerPrint");
-              }}
-            >
-              <Text style={styles.continueTxt}>Continue</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          <TouchableOpacity
+            style={styles.continue}
+            onPress={() => {
+              navigation.navigate("FingerPrint");
+            }}
+          >
+            <Text style={styles.continueTxt}>Continue</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </CustomWrapper>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: Platform.OS === "ios" ? 20 : 0,
     backgroundColor: "white",
   },
   scrollContainer: {
     flexGrow: 1,
-    paddingHorizontal: Platform.OS === "ios" ? 20 : 0,
   },
   header: {
     height: 60,
     flexDirection: "row",
-    paddingHorizontal: 20,
     alignItems: "center",
     justifyContent: "flex-start",
   },
@@ -103,7 +106,6 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    paddingHorizontal: 20,
   },
   skip: {
     backgroundColor: "grey",

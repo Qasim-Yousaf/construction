@@ -18,6 +18,7 @@ import {
 } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
+import { CustomWrapper } from "../../components";
 
 const FingerPrint = () => {
   const navigation = useNavigation();
@@ -28,112 +29,110 @@ const FingerPrint = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <View style={styles.header}>
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={styles.backBtn}
-            >
-              <Image
-                source={require("../../../assets/images/arrowLeft.png")}
-                style={[styles.icon]}
-              />
-            </TouchableOpacity>
-            <Text style={styles.headerTitle}>Set Your Fingerprint</Text>
+    <CustomWrapper>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.header}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backBtn}
+          >
+            <Image
+              source={require("../../../assets/images/arrowLeft.png")}
+              style={[styles.icon]}
+            />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Set Your Fingerprint</Text>
+        </View>
+        <View style={styles.body}>
+          <Text style={styles.subtitle}>
+            Add a finger print to make your account more secure
+          </Text>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={require("../../../assets/images/fingerprint.png")}
+              style={[styles.FingerPrint]}
+            />
           </View>
-          <View style={styles.body}>
-            <Text style={styles.subtitle}>
-              Add a finger print to make your account more secure
-            </Text>
-            <View
+          <Text style={styles.subtitle}>
+            Please put your finger on the fingerprint scanner to get started{" "}
+          </Text>
+        </View>
+        <View style={styles.footer}>
+          <TouchableOpacity style={styles.skip}>
+            <Text style={styles.skipTxt}>Skip</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.continue} onPress={toggleModal}>
+            <Text style={styles.continueTxt}>Continue</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+
+      <Modal isVisible={isModalVisible} backdropColor="transparent">
+        <View
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
+          <View style={styles.modelView}>
+            <Image
+              source={require("../../../assets/images/cong.png")}
+              style={[styles.cong]}
+            />
+            <Text
               style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
+                fontFamily: FONT_FAMILY_BOLD,
+                fontSize: 24,
+                color: "#ffffff",
               }}
             >
-              <Image
-                source={require("../../../assets/images/fingerprint.png")}
-                style={[styles.FingerPrint]}
-              />
-            </View>
-            <Text style={styles.subtitle}>
-              Please put your finger on the fingerprint scanner to get started{" "}
+              Congratulation!
             </Text>
-          </View>
-          <View style={styles.footer}>
-            <TouchableOpacity style={styles.skip}>
-              <Text style={styles.skipTxt}>Skip</Text>
-            </TouchableOpacity>
+            <Text
+              style={{
+                fontFamily: FONT_FAMILY_REGULAR,
+                fontSize: 18,
+                color: "#ffffff",
+                marginTop: 30,
+                textAlign: "center",
+                paddingHorizontal: 15,
+              }}
+            >
+              Your account is ready to use. You will be redirected to home page
+              after few seconds.
+            </Text>
 
-            <TouchableOpacity style={styles.continue} onPress={toggleModal}>
-              <Text style={styles.continueTxt}>Continue</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-
-        <Modal isVisible={isModalVisible} backdropColor="transparent">
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <View style={styles.modelView}>
-              <Image
-                source={require("../../../assets/images/cong.png")}
-                style={[styles.cong]}
-              />
+            <TouchableOpacity
+              onPress={() => {
+                toggleModal(), navigation.navigate("SignInOption");
+              }}
+            >
               <Text
                 style={{
                   fontFamily: FONT_FAMILY_BOLD,
-                  fontSize: 24,
-                  color: "#ffffff",
+                  fontSize: 20,
+                  color: "white",
+                  marginTop: 20,
                 }}
               >
-                Congratulation!
+                CLOSE
               </Text>
-              <Text
-                style={{
-                  fontFamily: FONT_FAMILY_REGULAR,
-                  fontSize: 18,
-                  color: "#ffffff",
-                  marginTop: 30,
-                  textAlign: "center",
-                  paddingHorizontal: 15,
-                }}
-              >
-                Your account is ready to use. You will be redirected to home
-                page after few seconds.
-              </Text>
-
-              <TouchableOpacity
-                onPress={() => {
-                  toggleModal(), navigation.navigate("SignInOption");
-                }}
-              >
-                <Text
-                  style={{
-                    fontFamily: FONT_FAMILY_BOLD,
-                    fontSize: 20,
-                    color: "white",
-                    marginTop: 20,
-                  }}
-                >
-                  CLOSE
-                </Text>
-              </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
           </View>
-        </Modal>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+        </View>
+      </Modal>
+    </CustomWrapper>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: Platform.OS === "ios" ? 20 : 0,
+    // paddingHorizontal: Platform.OS === "ios" ? 20 : 0,
     backgroundColor: "white",
   },
   scrollContainer: {
@@ -142,7 +141,7 @@ const styles = StyleSheet.create({
   header: {
     height: 60,
     flexDirection: "row",
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     alignItems: "center",
     justifyContent: "flex-start",
   },
@@ -151,11 +150,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
   },
   body: {
     flex: 1,
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
   },
   skip: {
     backgroundColor: "grey",
@@ -240,7 +239,7 @@ const styles = StyleSheet.create({
     height: 250,
   },
   modelView: {
-    width: Dimensions.get("screen").width - 20,
+    width: Dimensions.get("screen").width - 40,
     height: 400,
     backgroundColor: PRIMARY_COLOR,
     borderRadius: 10,
