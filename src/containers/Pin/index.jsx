@@ -15,9 +15,7 @@ import {
   PRIMARY_COLOR,
 } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
-import { TextInput, Avatar } from "react-native-paper";
-import { Dimensions } from "react-native";
-import * as ImagePicker from "expo-image-picker";
+import { Avatar } from "react-native-paper";
 import { OptInput } from "../../components";
 
 const Pin = () => {
@@ -63,7 +61,12 @@ const Pin = () => {
               <Text style={styles.skipTxt}>Skip</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.continue}>
+            <TouchableOpacity
+              style={styles.continue}
+              onPress={() => {
+                navigation.navigate("FingerPrint");
+              }}
+            >
               <Text style={styles.continueTxt}>Continue</Text>
             </TouchableOpacity>
           </View>

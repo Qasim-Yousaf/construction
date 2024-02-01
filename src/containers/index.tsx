@@ -9,6 +9,7 @@ import { Gender } from "./Gender";
 import { DateOfBirth } from "./DateOfBirth";
 import { ProfileSetup } from "./Profile";
 import { Pin } from "./Pin";
+import { FingerPrint } from "./FingerPrint";
 
 export {
   Dashboard,
@@ -22,4 +23,5 @@ export {
   DateOfBirth,
   ProfileSetup,
   Pin,
+  FingerPrint,
 };
