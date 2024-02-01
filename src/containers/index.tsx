@@ -6,6 +6,9 @@ import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 import { Interest } from "./Interest";
 import { Gender } from "./Gender";
+import { DateOfBirth } from "./DateOfBirth";
+import { ProfileSetup } from "./Profile";
+
 export {
   Dashboard,
   Category,
@@ -15,4 +18,6 @@ export {
   SignUp,
   Interest,
   Gender,
+  DateOfBirth,
+  ProfileSetup,
 };

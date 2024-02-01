@@ -124,7 +124,10 @@ const Gender = () => {
           <Text style={styles.skipTxt}>Skip</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.continue}>
+        <TouchableOpacity
+          style={styles.continue}
+          onPress={() => navigation.navigate("DateOfBirth")}
+        >
           <Text style={styles.continueTxt}>Continue</Text>
         </TouchableOpacity>
       </View>
@@ -135,6 +138,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
+    backgroundColor: "white",
   },
   header: {
     height: 60,

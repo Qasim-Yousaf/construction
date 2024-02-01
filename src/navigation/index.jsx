@@ -11,6 +11,8 @@ import {
   SignUp,
   Interest,
   Gender,
+  DateOfBirth,
+  ProfileSetup,
 } from "../containers";
 
 const Drawer = createDrawerNavigator();
@@ -29,6 +31,8 @@ const Navigation = () => {
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Interest" component={Interest} />
         <Stack.Screen name="Gender" component={Gender} />
+        <Stack.Screen name="DateOfBirth" component={DateOfBirth} />
+        <Stack.Screen name="ProfileSetup" component={ProfileSetup} />
       </Stack.Navigator>
 
       {/* <Drawer.Navigator initialRouteName="OnBoarding">
