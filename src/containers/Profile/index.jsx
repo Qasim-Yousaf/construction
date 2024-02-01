@@ -15,8 +15,9 @@ import {
   PRIMARY_COLOR,
 } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
-import { TextInput } from "react-native-paper";
+import { TextInput, Avatar } from "react-native-paper";
 import { Dimensions } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
 const ProfileSetup = () => {
   const navigation = useNavigation();
@@ -45,6 +46,22 @@ const ProfileSetup = () => {
     });
   };
 
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      let object = result.assets[0];
+      console.log("result.......", JSON.stringify(object, undefined, 2));
+      updateState("image", object);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -69,25 +86,20 @@ const ProfileSetup = () => {
                 alignItems: "center",
               }}
             >
-              <TouchableOpacity
-                style={{
-                  width: 150,
-                  height: 150,
-                  borderWidth: 1,
-                  borderRadius: 75,
-                  borderColor: "grey",
-                  marginBottom: 10,
-                }}
-              />
-              {/* <Image
-            source={require("../../../assets/images/birthday.jpg")}
-            style={{
-              width: 250,
-              height: 250,
-              marginBottom: 10,
-              //   borderWidth: 1,
-            }}
-          /> */}
+              <TouchableOpacity onPress={() => pickImage()} style={styles.img}>
+                {info.image != null ? (
+                  <Image
+                    source={{ uri: info.image.uri }}
+                    style={{ width: 150, height: 150, borderRadius: 75 }}
+                    resizeMode="cover"
+                  />
+                ) : (
+                  <Avatar.Image
+                    size={150}
+                    source={require("../../../assets//images/profile.jpeg")}
+                  />
+                )}
+              </TouchableOpacity>
 
               <TextInput
                 mode="outlined"
@@ -247,6 +259,15 @@ const styles = StyleSheet.create({
   txtContainer: {
     fontFamily: FONT_FAMILY_REGULAR,
     fontSize: 14,
+  },
+  img: {
+    width: 160,
+    height: 160,
+    borderWidth: 5,
+    borderColor: PRIMARY_COLOR,
+    borderRadius: 45,
+    marginBottom: 10,
+    borderRadius: 80,
   },
 });
 
