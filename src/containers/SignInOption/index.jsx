@@ -24,7 +24,7 @@ const SignInOption = (props) => {
   return (
     <CustomWrapper>
       <View style={styles.container}>
-        <View style={styles.backBtnHeader}>
+        {/* <View style={styles.backBtnHeader}>
           <TouchableOpacity
             onPress={() => navigation.navigate("OnBoarding")}
             style={styles.backBtn}
@@ -34,7 +34,7 @@ const SignInOption = (props) => {
               style={[styles.icon]}
             />
           </TouchableOpacity>
-        </View>
+        </View> */}
         <View style={{ flex: 1 }}>
           <Image
             source={require("../../../assets/images/222.png")}
